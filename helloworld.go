@@ -53,7 +53,7 @@ func main() {
 	const LENGTH = 10
 	const WIDTH = 5
 	area := LENGTH * WIDTH
-	fmt.Println("面积为:%d", area)
+	fmt.Println("面积为:", area)
 
 	//常量定义枚举,常量表达式必须是内置函数，否则编译不过
 	const (
@@ -85,6 +85,27 @@ func main() {
 		l               //3*2^3
 	)
 	fmt.Println(i,j,k,l)
+
+ 	a = 10
+ 	b = 100
+
+ 	a += 10
+	fmt.Println("a+10=",a)
+ 	b /= a
+	fmt.Println("b/a=",b)
+	b *= a
+	fmt.Println("b*a", b)
+	b %= a
+	fmt.Println("b%a",b)
+ 	b |= a
+	fmt.Println("b|a",b)
+ 	b &= a
+	fmt.Println("b&a",b)
+ 	b ^= a
+	fmt.Println("b^a",b)
+
+
+
 
 
 
