@@ -2,9 +2,18 @@ package main
 import (
 	"fmt"
 	"unsafe"
+	"errors"
 ) // 我们需要使用fmt包中的Println()函数
 
 var vname4,vname2 int
+
+func add(a int, b int)(ret int, err error){
+	if a < 0 || b < 0 {
+		err = errors.New("should be non-negative numbers")
+		return
+	}
+	return a + b,nil
+}
 
 func main() {
 	fmt.Println("hello")
@@ -103,6 +112,37 @@ func main() {
 	fmt.Println("b&a",b)
  	b ^= a
 	fmt.Println("b^a",b)
+
+	var jj int = 10
+	var mm uint = 2 //移位的数目必须是无符号数
+	jj <<= mm
+	fmt.Println("jj<<mm",jj)
+	jj >>= mm
+	fmt.Println("jj>>mm",jj)
+	//括号提升运算符优先级
+	ptr := &mm
+	fmt.Println(*ptr)
+
+	//select语句，类似case,不同之处，在于选择一个可运行的case，没有则阻塞
+	//for循环语句
+	a = 1
+	for a < 100{
+		a++
+	}
+	fmt.Println("a循环后",a)
+
+	var nn int = 8
+	var ii int
+	//返回两个参数，调用的时候，需要输出两个，不使用的用_代替
+	ii, _ = add(jj,nn)
+	fmt.Println("a+b",ii)
+	//两个数交换,支持并行赋值
+	jj,nn = nn,jj
+	fmt.Println("jj,nn",jj,nn)
+
+
+
+
 
 
 
