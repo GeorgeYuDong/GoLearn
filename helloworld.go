@@ -3,16 +3,26 @@ import (
 	"fmt"
 	"unsafe"
 	"errors"
+	"math"
 ) // 我们需要使用fmt包中的Println()函数
 
-var vname4,vname2 int
+var vname4,vname2 int = 10,20
 
+//:=声明不能用于全局变量,全局变量的初始化形式进行统一,也就是必须出现var关键字
+//vname5 := "string"
+//err的类型为error,需要导入包errors
 func add(a int, b int)(ret int, err error){
+
 	if a < 0 || b < 0 {
 		err = errors.New("should be non-negative numbers")
 		return
 	}
+
 	return a + b,nil
+}
+
+func swap(x string,y string )(string, string){
+	return y,x
 }
 
 func main() {
@@ -40,8 +50,8 @@ func main() {
 
 	//函数前面必须加包名，否则undefined func
 	//可以多个变量同时声明
-	vname1, vname2,vname3 := 1,2,3
-	fmt.Println(vname1,vname2,vname3)
+	vname1, vname5,vname3 := 1,2,3
+	fmt.Println(vname1,vname5,vname3)
 
 	var (
 		integer int
@@ -141,15 +151,42 @@ func main() {
 	jj,nn = nn,jj
 	fmt.Println("jj,nn",jj,nn)
 
+	s_x := "abc"
+	s_y := "kxyz"
+	var s_z string
+	var s_zz string
+	s_z,s_zz = swap(s_x, s_y)
+	fmt.Println("swap(s_x,s_y)",s_z,s_zz)
+	//函数传递，默认情况使用值传递，不影响实参
+	//全局变量和局部变量名称可以相同，但优先使用局部变量
+	var vname2 int = 30
+	fmt.Println("vname2:",vname2)
 
+	//指针类型的初始化默认值为nil
+	var pptr *int
+	fmt.Println("pptr:",pptr)
+	//数组声明,关键字var,首地址名称，个数，元素类型
+//	var bal [5] int
+	//数组的初始化有以下方式
+	 bal :=[...]int{1,2,3,4,5}
+//	var bal = [...]int{1,2,3,4,5}
 
+	//类型写在最后面，前面强调首地址，个数，类型
+	//	bal := [...]int
+	fmt.Println("数组元素:",bal[0],bal[1],bal[2])
 
+ 	//go语言里有个select，涉及到channel，到后面学习
+	//switch里面case var1，var1可以是任何类型的变量,case后面不需要加break
+	//switch后面可以同时测试多个执行项, case var1,var2,var3
+	//switch还涉及到了接口，后面再测
 
+	//函数本身可以作为变量使用,使用的时候，变量里面传参
+	getSquareRoot := func(x float64) float64{
+		return math.Sqrt(x)
+	}
+	fmt.Println("函数作为值：",getSquareRoot(9))
 
-
-
-
-
+	//闭包是一个内联函数
 
 
 
