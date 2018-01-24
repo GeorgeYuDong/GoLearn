@@ -6,6 +6,25 @@ import (
 	"math"
 ) // 我们需要使用fmt包中的Println()函数
 
+type Circle struct{
+	radius float64
+}
+
+//方法
+func (c Circle) getArea() float64{
+	return 3.14*c.radius*c.radius
+}
+
+
+//第二个func是匿名函数，返回的是匿名函数
+func getSequence() func() int{
+	ba := 0
+	return func() int { //此为闭包
+		ba+=1
+		return ba
+	}
+}
+
 var vname4,vname2 int = 10,20
 
 //:=声明不能用于全局变量,全局变量的初始化形式进行统一,也就是必须出现var关键字
@@ -186,7 +205,23 @@ func main() {
 	}
 	fmt.Println("函数作为值：",getSquareRoot(9))
 
-	//闭包是一个内联函数
+	//闭包是一个内联函数,回去继续学习
+	nextNumber := getSequence()
+
+	fmt.Println(nextNumber())
+	fmt.Println(nextNumber())
+	fmt.Println(nextNumber())
+	fmt.Println(nextNumber())
+
+	nextNumber1 := getSequence()
+	fmt.Println(nextNumber1())
+	fmt.Println(nextNumber1())
+
+    //函数方法,func 接受者，方法名，返回类型
+	var c1 Circle
+	c1.radius = 10.00
+	fmt.Println("Area of Circle(c1) =",c1.getArea())
+
 
 
 
