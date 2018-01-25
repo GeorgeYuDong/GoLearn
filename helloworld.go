@@ -9,6 +9,10 @@ import (
 type Circle struct{
 	radius float64
 }
+//切片
+func ModifyArray(array [5]int){
+	array[0] = 100
+}
 
 //方法
 func (c Circle) getArea() float64{
@@ -221,6 +225,129 @@ func main() {
 	var c1 Circle
 	c1.radius = 10.00
 	fmt.Println("Area of Circle(c1) =",c1.getArea())
+
+	//数组:var,首地址名，个数，类型
+	//bal := []float,首地址，个数，类型,这种思维方式要慢慢习惯
+	//不传地址，占用内存。闭包，占用内存.
+	//三行四列，先写列，再写行,注意这种差别
+	//访问的时候，先访问行，再访问列,行在外层，列在内层,里面的是最后访问的
+
+	var iptr *int
+	var flp *float64
+	//Printf格式化输出,%x,十六进制
+	fmt.Printf("ip的地址 =%x\n",iptr)
+	iptr = &a
+	flp = &c1.radius
+	fmt.Println("a的地址 =",iptr)
+	fmt.Println("radius的地址 =",flp)
+	//if (iptr == nil),指针与空值比较
+	iiptr := &a //也可以这样声明，与整数类型声明一样，自动推导
+	fmt.Printf("iiptr的地址 =%x\n",iiptr)
+
+	var abcd [3] int //指针默认值都是nil,指针数组
+	fmt.Println("abcd的值 =",abcd[0],abcd[1])
+	abcd = [...]int{4,5,6} //赋值的时候，必须要有省略号
+	fmt.Println("abcd1234的值 =",abcd[0],abcd[1])
+
+	//初始化的时候省略号可以拿掉,数组个数可以不输,把报错情况考虑进去
+	bbc := [...]int{1,2,3} //数组强调首地址名，也是一个变量，定义的时候要注意
+	fmt.Println("bbc的值 =",bbc[0],bbc[1])
+	var ccd = []int{3,5,6} //越界报index out of range
+	fmt.Println("ccd的值 =",ccd[0],ccd[1])
+
+
+ 	//指向指针的指针，同C语言，两个**
+ 	//指针可作为参数传递，同C语言
+
+ 	//结构体定义,type设定了结构体名称，struct是结构体关键字
+ 	//type类似于C语言typedef
+	type Books struct {
+		title string
+		book_id int
+	}
+
+	var Book1 Books
+	var Book2 Books
+
+	Book1.title = "Go languange"
+	Book1.book_id = 1
+	Book2.title = "C languange"
+	Book2.book_id = 2
+
+	fmt.Println("Book1.title:",Book1.title)
+	fmt.Println("Book1.book_id:",Book1.book_id)
+	fmt.Println("Book2.title:",Book2.title)
+	fmt.Println("Book2.book_id:",Book2.book_id)
+
+
+	//结构体指针可以返回结构体,结构体名称就是结构体类型
+	//访问结构体元素方法：.操作符
+	var pBook *Books //结构体指针 ,type类似于typedef
+	pBook = &Book1
+	fmt.Println("pBook.title:",pBook.title)
+
+	fmt.Printf("ii的值:")
+	for ii = 0; ii < 10 ; ii++{
+		fmt.Printf("%d ",ii)
+	}
+	fmt.Printf("\n")
+
+	//bal :=[...]int{1,2,3,4,5}
+	//	var bal [5] int
+	//Slice切片，对数组的抽象，动态数组，不限定数组数量
+	slice1 := [] int {1,2,3}
+	fmt.Println("slice:", slice1[0])
+
+	slice1 =[] int {5,6,7}
+	//[]标识为切片
+//	s := make([]int, 3, 3)
+//	fmt.Println("s:", s[0],s[1])
+	//初始化切片是数组bal的引用
+	s := bal[:]
+	fmt.Println("s:", s[0],s[1])
+	//直接打印s,bal，打印出来的整个数组
+	fmt.Println("s", s)
+	fmt.Println("bal", bal)
+	//3为初始长度，5为最大长度(容量)
+	var numbers = make([]int, 3, 5)
+	numbers = []int{1,2,4,7,8,9,10,11}
+//	fmt.Println("numbers:",numbers[6])
+//	fmt.Println("numbers len:",len(numbers))
+//	fmt.Println("numbers cap:",cap(numbers))
+	//含索引1，不包含3
+	fmt.Println("numbers:",numbers[1:3])
+	//0到索引2，不包含3
+	fmt.Println("numbers:",numbers[:3])
+	//开始值，是从索引1到最后
+	fmt.Println("numbers:",numbers[1:])
+
+	var num []int
+	if (num == nil){
+		fmt.Println("num", num)
+	}
+
+	numbers = append(numbers, 10,20,30)
+	fmt.Println("numbers:",numbers[1:])
+/*
+	fmt.Println("before modify,numbers:",numbers)
+	ModifyArray(numbers)
+	fmt.Println("modified,numbers:",numbers)
+*/
+	//两者一样，数组是值传递,函数内改变数组元素值不会生效，切片可以
+	fmt.Println("before modify,bal:",bal)
+	ModifyArray(bal)
+	fmt.Println("modified,bal:",bal)
+	//切片，指向数组的指针,传的是指针，所以可以改变数组内元素值
+	numbers1 := make([]int,len(numbers),(cap(numbers)*2))
+	copy(numbers1,numbers)
+	fmt.Println("cap(numbers1):",cap(numbers1))
+	fmt.Println("cap(numbers):",cap(numbers))
+
+
+
+
+
+
 
 
 
