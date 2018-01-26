@@ -6,9 +6,40 @@ import (
 	"math"
 ) // 我们需要使用fmt包中的Println()函数
 
+type Phone interface {
+	call()
+}
+
+type NokiaPhone struct{
+
+}
+
+type IPhone struct {
+
+}
+
+func (iPhone IPhone) call(){
+	fmt.Println("iphone call")
+}
+
+func (nokiaPhone NokiaPhone) call(){
+	fmt.Println("nokia call")
+}
+
+
 type Circle struct{
 	radius float64
 }
+//递归函数
+func Factorial(n uint64)(result uint64) {
+	if (n > 0) {
+		result = n * Factorial(n - 1)
+		return result
+	}
+	return 1
+}
+
+
 //切片
 func ModifyArray(array [5]int){
 	array[0] = 100
@@ -343,12 +374,78 @@ func main() {
 	fmt.Println("cap(numbers1):",cap(numbers1))
 	fmt.Println("cap(numbers):",cap(numbers))
 
+	var ss = make([]int, 5, 5)
+	ss = []int{1,2,3,4,5}
+	fmt.Println("ss:",ss[1:])
 
+	//range的用法
+	nums := []int{1,2,3,4}
+	sum := 0
+	for _, num := range nums{
+		sum += num
+	} //_为索引，num为索引对应的值
+	fmt.Println("sum:",sum)
 
+	for i, num := range nums{
+		if (num == 3){
+			fmt.Println("index:",i)
+		}
+	}
 
+	kvs := map[string]string{"a":"apple","b":"banana"}
+	for k, v := range kvs {
+	//	fmt.Printf("%s->%s\n",k,v)
+			fmt.Println(k,v)
+	}
+	//i为索引，c为索引对应的值
+	for xx,c := range "ab" {
+		fmt.Println(xx,c)
+	}
+	//map的两种初始化方式，第一种:
+	//map集合,第一个string是key_type,第二个string是value_type
+	var countryCapitalMap map[string]string
+	fmt.Println(countryCapitalMap)
+	countryCapitalMap = make(map[string]string)
 
+	//第二种
+	kvvs := map[string]string{"a":"apple","b":"banana"}
+	fmt.Println(kvvs)
 
+	countryCapitalMap["china"] = "beijing"
+	countryCapitalMap["korea"] = "hancheng"
+	//countryCapitalMap是一个键值对
+	fmt.Println(countryCapitalMap)
 
+	//for后面可以只有索引
+	for country := range countryCapitalMap {
+		fmt.Println("capital of",country,"is",countryCapitalMap[country])
+	}
+
+	for country,capital := range countryCapitalMap {
+		fmt.Println(country,",",capital)
+	}
+	//第2个参数代表是否存在
+	capital, ok := countryCapitalMap["china"]
+	fmt.Println(ok,capital)
+
+	//delete函数删除集合元素
+	delete(countryCapitalMap,"korea")
+	fmt.Println(countryCapitalMap)
+
+	//递归完成,确定到哪边递归完成,避免无限循环
+	factorial := 3
+	fmt.Println(Factorial(uint64(factorial)))
+
+	mean := float32(17) /float32(5)
+	fmt.Printf("%f\n",mean)
+
+	//非倾入式接口
+	var phone Phone
+	phone = new(IPhone)
+	phone.call()
+
+	phone = new(NokiaPhone)
+	phone.call()
 
 
 
