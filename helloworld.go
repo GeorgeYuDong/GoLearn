@@ -439,13 +439,15 @@ func main() {
 	mean := float32(17) /float32(5)
 	fmt.Printf("%f\n",mean)
 
-	//非倾入式接口
+	//非侵入式接口
 	var phone Phone
 	phone = new(IPhone)
 	phone.call()
 
 	phone = new(NokiaPhone)
 	phone.call()
+
+
 
 
 
